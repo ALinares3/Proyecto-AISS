@@ -1,14 +1,19 @@
 package aiss.videominer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * @author Juan C. Alonso
  */
 @Entity
 @Table(name = "Comment")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Comment {
 
     @Id

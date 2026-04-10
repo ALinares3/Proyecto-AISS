@@ -1,6 +1,8 @@
 package aiss.videominer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -10,6 +12,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "Caption")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Caption {
 
     @Id
