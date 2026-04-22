@@ -1,7 +1,6 @@
-package aiss.videominer.model;
+package aiss.peertubeMiner.model;
 
 import java.util.List;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -42,12 +41,12 @@ public class Video {
 
     @JsonProperty("user")
     @OneToOne(cascade = CascadeType.ALL)
-    private User author;
+    private Acount author;
 
-    @JsonProperty("comments")
+    @JsonProperty("commentsThreads")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "videoId")
-    private List<Comment> comments;
+    private List<commentThreads> comments;
 
     @JsonProperty("captions")
     @OneToMany(cascade = CascadeType.ALL)
@@ -86,19 +85,19 @@ public class Video {
         this.releaseTime = releaseTime;
     }
 
-    public User getAuthor() {
+    public Acount getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Acount author) {
         this.author = author;
     }
     
-    public List<Comment> getComments() {
+    public List<commentThreads> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(List<commentThreads> comments) {
         this.comments = comments;
     }
 
@@ -118,7 +117,7 @@ public class Video {
                 ", description='" + description + '\'' +
                 ", releaseTime='" + releaseTime + '\'' +
                 ", author=" + author +
-                ", comments=" + comments +
+                ", commentsThreads=" + comments +
                 ", captions=" + captions +
                 '}';
     }

@@ -1,7 +1,6 @@
-package aiss.videominer.model;
+package aiss.dailymotionMiner.model;
 
 import java.util.List;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,19 +39,15 @@ public class Video {
     @NotEmpty(message = "Video release time cannot be empty")
     private String releaseTime;
 
-    @JsonProperty("user")
+    @JsonProperty("owner")
     @OneToOne(cascade = CascadeType.ALL)
-    private User author;
+    private Owner author;
 
-    @JsonProperty("comments")
+
+    @JsonProperty("subtitles")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "videoId")
-    private List<Comment> comments;
-
-    @JsonProperty("captions")
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "videoId")
-    private List<Caption> captions;
+    private List<Subtitle> subtitles;
 
     public String getId() {
         return id;
@@ -86,28 +81,21 @@ public class Video {
         this.releaseTime = releaseTime;
     }
 
-    public User getAuthor() {
+    public Owner getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Owner author) {
         this.author = author;
     }
     
-    public List<Comment> getComments() {
-        return comments;
+
+    public List<Subtitle> getSubtitles() {
+        return subtitles;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Caption> getCaptions() {
-        return captions;
-    }
-
-    public void setCaptions(List<Caption> captions) {
-        this.captions = captions;
+    public void setSubtitles(List<Subtitle> subtitles) {
+        this.subtitles = subtitles;
     }
 
     @Override
@@ -118,8 +106,7 @@ public class Video {
                 ", description='" + description + '\'' +
                 ", releaseTime='" + releaseTime + '\'' +
                 ", author=" + author +
-                ", comments=" + comments +
-                ", captions=" + captions +
+                ", subtitles=" + subtitles +
                 '}';
     }
 }
