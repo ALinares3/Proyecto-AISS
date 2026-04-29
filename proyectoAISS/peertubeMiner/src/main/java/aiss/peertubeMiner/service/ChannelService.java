@@ -1,4 +1,4 @@
-package aiss.dailymotionMiner.service;
+package aiss.peertubeMiner.service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.dailymotionMiner.model.Channel;
+import aiss.peertubeMiner.model.Channel;
 
 public class ChannelService {
-
+    
     @Autowired
     RestTemplate restTemplate;
 
-    public ChannelService(RestTemplate restTemplate) {
+    public ChannelService(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
 
-    @Value("${dailymotionMiner.baseuri}")
+    @Value("${peertubeMiner.baseuri}")
     private String baseUri;
 
     @Value("${videominer.uri}")
@@ -26,13 +26,13 @@ public class ChannelService {
 
 //GET all
     public List<Channel> findAllChannels() {
-        Channel[] channels = restTemplate.getForObject(baseUri + "/video-channels", Channel[].class);
+        Channel[] channels = restTemplate.getForObject(baseUri + "/playlist", Channel[].class);
         return Arrays.asList(channels);
     }
 
 //GET by id
     public Channel findChannelById(String id){
-        return restTemplate.getForObject(baseUri + "/video-channels/" + id, Channel.class);
+        return restTemplate.getForObject(baseUri + "/playlist/" + id, Channel.class);
     }
 
 //POST
@@ -40,5 +40,4 @@ public class ChannelService {
         return restTemplate.postForObject(videominerUri + "/channels/" + id, data, Channel.class);
     }
 
-    
 }
