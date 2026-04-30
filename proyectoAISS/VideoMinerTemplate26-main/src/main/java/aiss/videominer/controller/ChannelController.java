@@ -1,11 +1,13 @@
 package aiss.videominer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import aiss.videominer.repository.ChannelRepository;
 
 @RestController
+@RequestMapping("/videominer/v1")
 public class ChannelController {
 
     @Autowired
