@@ -1,11 +1,24 @@
 package aiss.videominer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import aiss.videominer.repository.CaptionRepository;
 import aiss.videominer.repository.VideoRepository;
+import aiss.videominer.model.Caption;
+import jakarta.validation.Valid;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/videominer/v1")
@@ -16,10 +29,47 @@ public class CaptionController {
     @Autowired
     private final CaptionRepository captionRepository;
 
-    public CaptionController(VideoRepository videoRepository,CaptionRepository captionRepository){
-        this.videoRepository=videoRepository;
-        this.captionRepository=captionRepository;
+    public CaptionController(VideoRepository videoRepository, CaptionRepository captionRepository) {
+        this.videoRepository = videoRepository;
+        this.captionRepository = captionRepository;
     }
 
-    //TODO:Get all y por id, post, put y delete
+    // TODO: Get all y por id, post, put y delete
+    @GetMapping("/captions")
+    public List<Caption> findAll() {
+        return captionRepository.findAll();
+    }
+
+    @GetMapping("/captions/{id}")
+    public Caption findByOneId(@PathVariable String id) {
+        Optional<Caption> caption = captionRepository.findById(id);
+        return caption.get();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED) // 201
+    @PostMapping("/captions")
+    public Caption createCaption(@Valid @RequestBody Caption caption) {
+        Caption createdCaption = captionRepository.save(caption);
+        return createdCaption;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT) // 204
+    @PutMapping("/captions/{id}")
+    public void updateCaption(@Valid @RequestBody Caption updateCaption, @PathVariable String id) {
+        Optional<Caption> caption = captionRepository.findById(id);
+        if (caption.isPresent()) {
+            Caption _caption = caption.get();
+            _caption.setName(updateCaption.getName());
+            _caption.setLanguage(updateCaption.getLanguage());
+            captionRepository.save(_caption);
+        }
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT) // 204
+    @DeleteMapping("/captions/{id}")
+    public void deleteCaption(@PathVariable String id) {
+        if (captionRepository.existsById(id)) {
+            captionRepository.deleteById(id);
+        }
+    }
 }
