@@ -26,13 +26,13 @@ public class ChannelService {
 
 //GET all
     public List<Channel> findAllChannels() {
-        Channel[] channels = restTemplate.getForObject(baseUri + "/playlist", Channel[].class);
+        Channel[] channels = restTemplate.getForObject(baseUri + "/video-channels", Channel[].class);
         return Arrays.asList(channels);
     }
 
 //GET by id
     public Channel findChannelById(String id){
-        return restTemplate.getForObject(baseUri + "/playlist/" + id, Channel.class);
+        return restTemplate.getForObject(baseUri + "/video-channels/" + id, Channel.class);
     }
 
 //POST
