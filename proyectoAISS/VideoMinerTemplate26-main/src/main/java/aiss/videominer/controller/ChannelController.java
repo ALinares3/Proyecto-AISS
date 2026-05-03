@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import aiss.videominer.exception.ChannelNotFoundException;
 import aiss.videominer.model.Channel;
 import aiss.videominer.repository.ChannelRepository;
 import jakarta.validation.Valid;
@@ -31,15 +32,17 @@ public class ChannelController {
     }
 
     //TODO: Get all y por id, post, put y delete
-    //Supongo que get necesitará un método para peertube y otro para dailymotion
     @GetMapping
 	public List<Channel> findAll(){
 		return channelRepository.findAll();
 	}
 
 	@GetMapping("{/id}")
-	public Channel findByOneId(@PathVariable String id){
-		Optional<Channel> channel = channelRepository.findById(id);
+	public Channel findByOneId(@PathVariable String id) throws ChannelNotFoundException{
+		Optional<Channel> channel = channelRepository.findById(id); 
+        if(!channel.isPresent()){
+            throw new ChannelNotFoundException();
+        }
         return channel.get();
 	}
 
@@ -52,14 +55,15 @@ public class ChannelController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @PutMapping("{/id}")
-    public void updateChannel(@Valid @RequestBody Channel updateChannel, @PathVariable String id){
+    public void updateChannel(@Valid @RequestBody Channel updateChannel, @PathVariable String id) throws ChannelNotFoundException{
         Optional<Channel> channel = channelRepository.findById(id);
-        if(channel.isPresent()){
-            Channel _channel = channel.get();
+        if(!channel.isPresent()){ 
+            throw new ChannelNotFoundException();
+        }
+        Channel _channel = channel.get();
             _channel.setName(updateChannel.getName());
             _channel.setDescription(updateChannel.getDescription());
             channelRepository.save(_channel);
-        }
     }
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @DeleteMapping("{/id}")

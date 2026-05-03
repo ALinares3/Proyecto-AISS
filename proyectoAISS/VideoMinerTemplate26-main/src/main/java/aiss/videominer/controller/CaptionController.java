@@ -20,10 +20,14 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+import aiss.videominer.exception.CaptionNotFoundException;
+import aiss.videominer.exception.VideoNotFoundException;
+import aiss.videominer.model.Video;
+
 @RestController
 @RequestMapping("/videominer/v1")
 public class CaptionController {
-    
+
     @Autowired
     private final VideoRepository videoRepository;
     @Autowired
@@ -41,9 +45,22 @@ public class CaptionController {
     }
 
     @GetMapping("/captions/{id}")
-    public Caption findByOneId(@PathVariable String id) {
+    public Caption findByOneId(@PathVariable String id) throws CaptionNotFoundException {
         Optional<Caption> caption = captionRepository.findById(id);
+        if (!caption.isPresent()) {
+            throw new CaptionNotFoundException();
+        }
         return caption.get();
+    }
+
+    @GetMapping("/videos/{id}/captions")
+    public List<Caption> findCaptionsOfVideo(@PathVariable String id) throws VideoNotFoundException {
+        Optional<Video> videoOptional = videoRepository.findById(id);
+        if (!videoOptional.isPresent()) {
+            throw new VideoNotFoundException();
+        }
+        Video video = videoOptional.get();
+        return video.getCaptions();
     }
 
     @ResponseStatus(HttpStatus.CREATED) // 201
@@ -55,14 +72,15 @@ public class CaptionController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @PutMapping("/captions/{id}")
-    public void updateCaption(@Valid @RequestBody Caption updateCaption, @PathVariable String id) {
+    public void updateCaption(@Valid @RequestBody Caption updateCaption, @PathVariable String id) throws CaptionNotFoundException {
         Optional<Caption> caption = captionRepository.findById(id);
-        if (caption.isPresent()) {
-            Caption _caption = caption.get();
-            _caption.setName(updateCaption.getName());
-            _caption.setLanguage(updateCaption.getLanguage());
-            captionRepository.save(_caption);
+        if (!caption.isPresent()) { //Hacer excepción
+            throw new CaptionNotFoundException();
         }
+        Caption _caption = caption.get();
+        _caption.setName(updateCaption.getName());
+        _caption.setLanguage(updateCaption.getLanguage());
+        captionRepository.save(_caption);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204

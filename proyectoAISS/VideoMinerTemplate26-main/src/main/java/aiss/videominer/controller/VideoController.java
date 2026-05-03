@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import aiss.videominer.exception.VideoNotFoundException;
 import aiss.videominer.model.Video;
 import aiss.videominer.repository.VideoRepository;
 
@@ -35,8 +36,11 @@ public class VideoController {
     }
 
     @GetMapping("/videos/{id}")
-    public Video findById(@PathVariable String id) {
-        Optional<Video> video = videoRepository.findById(id);
+    public Video findById(@PathVariable String id) throws VideoNotFoundException{
+        Optional<Video> video = videoRepository.findById(id); 
+        if(!video.isPresent()){
+            throw new VideoNotFoundException();
+        }
         return video.orElse(null);
     }
 
@@ -48,10 +52,12 @@ public class VideoController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/videos/{id}")
-    public void updateVideo(@RequestBody Video updateVideo, @PathVariable String id) {
+    public void updateVideo(@RequestBody Video updateVideo, @PathVariable String id) throws VideoNotFoundException{
         Optional<Video> existing = videoRepository.findById(id);
-        if (existing.isPresent()) {
-            Video video = existing.get();
+        if (existing.isPresent()) { 
+            throw new VideoNotFoundException();
+        }
+        Video video = existing.get();
             video.setName(updateVideo.getName());
             video.setDescription(updateVideo.getDescription());
             video.setReleaseTime(updateVideo.getReleaseTime());
@@ -59,7 +65,6 @@ public class VideoController {
             video.setComments(updateVideo.getComments());
             video.setCaptions(updateVideo.getCaptions());
             videoRepository.save(video);
-        }
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
