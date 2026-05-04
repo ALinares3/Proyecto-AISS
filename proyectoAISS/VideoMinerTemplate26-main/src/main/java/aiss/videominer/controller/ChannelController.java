@@ -37,7 +37,7 @@ public class ChannelController {
 		return channelRepository.findAll();
 	}
 
-	@GetMapping("{/id}")
+	@GetMapping("/{id}")
 	public Channel findByOneId(@PathVariable String id) throws ChannelNotFoundException{
 		Optional<Channel> channel = channelRepository.findById(id); 
         if(!channel.isPresent()){
@@ -54,7 +54,7 @@ public class ChannelController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public void updateChannel(@Valid @RequestBody Channel updateChannel, @PathVariable String id) throws ChannelNotFoundException{
         Optional<Channel> channel = channelRepository.findById(id);
         if(!channel.isPresent()){ 
@@ -66,7 +66,7 @@ public class ChannelController {
             channelRepository.save(_channel);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void deleteChannel(@PathVariable String id){
         if(channelRepository.existsById(id)) {
             channelRepository.deleteById(id);
