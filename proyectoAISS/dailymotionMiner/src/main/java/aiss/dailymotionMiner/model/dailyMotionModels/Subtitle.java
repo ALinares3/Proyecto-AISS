@@ -1,4 +1,4 @@
-package aiss.dailymotionMiner.model;
+package aiss.dailymotionMiner.model.peertubeModels;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

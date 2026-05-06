@@ -1,6 +1,5 @@
-package aiss.dailymotionMiner.model;
+package aiss.dailymotionMiner.model.peertubeModels;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,43 +11,43 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 /**
  * @author Juan C. Alonso
  */
 @Entity
-@Table(name = "Channel")
+@Table(name = "Video")
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Channel {
+public class Video {
 
     @Id
     @JsonProperty("id")
     private String id;
 
     @JsonProperty("name")
-    @NotEmpty(message = "Channel name cannot be empty")
+    @NotEmpty(message = "Video name cannot be empty")
     private String name;
 
     @JsonProperty("description")
     @Column(columnDefinition="TEXT")
     private String description;
 
-    @JsonProperty("createdTime")
-    @NotEmpty(message = "Channel creation time cannot be empty")
-    private String createdTime;
+    @JsonProperty("releaseTime")
+    @NotEmpty(message = "Video release time cannot be empty")
+    private String releaseTime;
 
-    @JsonProperty("videos")
+    @JsonProperty("owner")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Owner author;
+
+
+    @JsonProperty("subtitles")
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "channelId")
-    @NotNull(message = "Channel videos cannot be null")
-    private List<Video> videos;
-
-    public Channel() {
-        this.videos = new ArrayList<>();
-    }
+    @JoinColumn(name = "videoId")
+    private List<Subtitle> subtitles;
 
     public String getId() {
         return id;
@@ -74,30 +73,40 @@ public class Channel {
         this.description = description;
     }
 
-    public String getCreatedTime() {
-        return createdTime;
+    public String getReleaseTime() {
+        return releaseTime;
     }
 
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
+    public void setReleaseTime(String releaseTime) {
+        this.releaseTime = releaseTime;
     }
 
-    public List<Video> getVideos() {
-        return videos;
+    public Owner getAuthor() {
+        return author;
     }
 
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
+    public void setAuthor(Owner author) {
+        this.author = author;
+    }
+    
+
+    public List<Subtitle> getSubtitles() {
+        return subtitles;
+    }
+
+    public void setSubtitles(List<Subtitle> subtitles) {
+        this.subtitles = subtitles;
     }
 
     @Override
     public String toString() {
-        return "Channel{" +
+        return "Video{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", createdTime='" + createdTime + '\'' +
-                ", videos=" + videos +
+                ", releaseTime='" + releaseTime + '\'' +
+                ", author=" + author +
+                ", subtitles=" + subtitles +
                 '}';
     }
 }
