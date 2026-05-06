@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.peertubeminer.model.peertubeModels.Comment.Comment;
+import aiss.peertubeminer.model.peertubeModels.Comment.Comment__1;
 
 
 public class commentThreadsService {
@@ -26,19 +26,19 @@ public class commentThreadsService {
     private String videominerUri;
 
 //GET all
-    public List<Comment> findAllcommentThreads() {
-        Comment[] comments = restTemplate.getForObject(baseUri + "/comment-threads", Comment[].class);
+    public List<Comment__1> findAllcommentThreads() {
+        Comment__1[] comments = restTemplate.getForObject(baseUri + "/comment-threads", Comment__1[].class);
         return Arrays.asList(comments);
     }
 
 //GET by id
-    public Comment findcommentThreadsById(String id){
-        return restTemplate.getForObject(baseUri + "/comment-threads/" + id, Comment.class);
+    public Comment__1 findcommentThreadsById(String id){
+        return restTemplate.getForObject(baseUri + "/comment-threads/" + id, Comment__1.class);
     }
 
 //POST
-    public Comment createcommentThreadsInVideoMiner(String id,Comment data){
-        return restTemplate.postForObject(videominerUri + "/comment-threads/" + id, data, Comment.class);
+    public Comment__1 createcommentThreadsInVideoMiner(String id,Comment__1 data){
+        return restTemplate.postForObject(videominerUri + "/comment-threads/" + id, data, Comment__1.class);
     }
 
 }
