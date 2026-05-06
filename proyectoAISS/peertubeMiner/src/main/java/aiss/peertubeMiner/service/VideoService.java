@@ -10,7 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.peertubeMiner.model.Video;
+import aiss.peertubeminer.model.peertubeModels.Video.Video;
+
 
 public class VideoService {
 
@@ -21,7 +22,7 @@ public class VideoService {
         this.restTemplate = restTemplate;
     }
 
-    @Value("${dailymotionMiner.baseuri}")
+    @Value("${peertubeMiner.baseuri}")
     private String baseUri;
 
     @Value("${videominer.uri}")

@@ -10,7 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.dailymotionMiner.model.peertubeModels.Subtitle;
+import aiss.dailymotionMiner.model.peertubeModels.Subtitle; // esto es el caption
 
 public class SubtitleService {
 

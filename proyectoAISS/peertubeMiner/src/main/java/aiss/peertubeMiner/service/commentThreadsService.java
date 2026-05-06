@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.peertubeMiner.model.commentThreads;
+import aiss.peertubeminer.model.peertubeModels.Comment.Comment;
+
 
 public class commentThreadsService {
     
@@ -25,19 +26,19 @@ public class commentThreadsService {
     private String videominerUri;
 
 //GET all
-    public List<commentThreads> findAllcommentThreads() {
-        commentThreads[] commentThreads = restTemplate.getForObject(baseUri + "/comment-threads", commentThreads[].class);
-        return Arrays.asList(commentThreads);
+    public List<Comment> findAllcommentThreads() {
+        Comment[] comments = restTemplate.getForObject(baseUri + "/comment-threads", Comment[].class);
+        return Arrays.asList(comments);
     }
 
 //GET by id
-    public commentThreads findcommentThreadsById(String id){
-        return restTemplate.getForObject(baseUri + "/comment-threads/" + id, commentThreads.class);
+    public Comment findcommentThreadsById(String id){
+        return restTemplate.getForObject(baseUri + "/comment-threads/" + id, Comment.class);
     }
 
 //POST
-    public commentThreads createcommentThreadsInVideoMiner(String id,commentThreads data){
-        return restTemplate.postForObject(videominerUri + "/comment-threads/" + id, data, commentThreads.class);
+    public Comment createcommentThreadsInVideoMiner(String id,Comment data){
+        return restTemplate.postForObject(videominerUri + "/comment-threads/" + id, data, Comment.class);
     }
 
 }

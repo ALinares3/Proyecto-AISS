@@ -10,7 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.dailymotionMiner.model.Channel;
+import aiss.dailymotionMiner.model.dailyMotionModels.Channel;
 
 public class ChannelService {
 

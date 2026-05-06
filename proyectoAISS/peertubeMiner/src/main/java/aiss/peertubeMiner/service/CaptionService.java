@@ -10,7 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.peertubeMiner.model.Caption;
+import aiss.peertubeminer.model.peertubeModels.Caption.Caption;
 
 public class CaptionService {
 

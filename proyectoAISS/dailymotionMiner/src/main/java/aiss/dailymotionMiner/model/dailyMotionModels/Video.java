@@ -1,112 +1,131 @@
-package aiss.dailymotionMiner.model.peertubeModels;
 
-import java.util.List;
+package aiss.dailymotionMiner.model.dailyMotionModels;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.annotation.processing.Generated;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
-
-/**
- * @author Juan C. Alonso
- */
-@Entity
-@Table(name = "Video")
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "id",
+    "title",
+    "description",
+    "created_time",
+    "owner",
+    "tags"
+})
+@Generated("jsonschema2pojo")
 public class Video {
 
-    @Id
     @JsonProperty("id")
     private String id;
-
-    @JsonProperty("name")
-    @NotEmpty(message = "Video name cannot be empty")
-    private String name;
-
+    @JsonProperty("title")
+    private String title;
     @JsonProperty("description")
-    @Column(columnDefinition="TEXT")
     private String description;
-
-    @JsonProperty("releaseTime")
-    @NotEmpty(message = "Video release time cannot be empty")
-    private String releaseTime;
-
+    @JsonProperty("created_time")
+    private Integer createdTime;
     @JsonProperty("owner")
-    @OneToOne(cascade = CascadeType.ALL)
-    private Owner author;
+    private String owner;
+    @JsonProperty("tags")
+    private java.util.List<String> tags;
 
-
-    @JsonProperty("subtitles")
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "videoId")
-    private List<Subtitle> subtitles;
-
+    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
+    @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    @JsonProperty("title")
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @JsonProperty("title")
+    public void setTitle(String title) {
+        this.title = title;
     }
 
+    @JsonProperty("description")
     public String getDescription() {
         return description;
     }
 
+    @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getReleaseTime() {
-        return releaseTime;
+    @JsonProperty("created_time")
+    public Integer getCreatedTime() {
+        return createdTime;
     }
 
-    public void setReleaseTime(String releaseTime) {
-        this.releaseTime = releaseTime;
+    @JsonProperty("created_time")
+    public void setCreatedTime(Integer createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public Owner getAuthor() {
-        return author;
+    @JsonProperty("owner")
+    public String getOwner() {
+        return owner;
     }
 
-    public void setAuthor(Owner author) {
-        this.author = author;
-    }
-    
-
-    public List<Subtitle> getSubtitles() {
-        return subtitles;
+    @JsonProperty("owner")
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
-    public void setSubtitles(List<Subtitle> subtitles) {
-        this.subtitles = subtitles;
+    @JsonProperty("tags")
+    public java.util.List<String> getTags() {
+        return tags;
+    }
+
+    @JsonProperty("tags")
+    public void setTags(java.util.List<String> tags) {
+        this.tags = tags;
     }
 
     @Override
     public String toString() {
-        return "Video{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", releaseTime='" + releaseTime + '\'' +
-                ", author=" + author +
-                ", subtitles=" + subtitles +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(Video.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append("id");
+        sb.append('=');
+        sb.append(((this.id == null)?"<null>":this.id));
+        sb.append(',');
+        sb.append("title");
+        sb.append('=');
+        sb.append(((this.title == null)?"<null>":this.title));
+        sb.append(',');
+        sb.append("description");
+        sb.append('=');
+        sb.append(((this.description == null)?"<null>":this.description));
+        sb.append(',');
+        sb.append("createdTime");
+        sb.append('=');
+        sb.append(((this.createdTime == null)?"<null>":this.createdTime));
+        sb.append(',');
+        sb.append("owner");
+        sb.append('=');
+        sb.append(((this.owner == null)?"<null>":this.owner));
+        sb.append(',');
+        sb.append("tags");
+        sb.append('=');
+        sb.append(((this.tags == null)?"<null>":this.tags));
+        sb.append(',');
+        if (sb.charAt((sb.length()- 1)) == ',') {
+            sb.setCharAt((sb.length()- 1), ']');
+        } else {
+            sb.append(']');
+        }
+        return sb.toString();
     }
+
 }

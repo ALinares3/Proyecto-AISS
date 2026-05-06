@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.peertubeMiner.model.Channel;
+import aiss.peertubeminer.model.peertubeModels.Video.Channel;
 
 public class ChannelService {
     
