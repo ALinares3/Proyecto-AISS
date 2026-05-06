@@ -5,9 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeminer.model.peertubeModels.Video.Video;
@@ -43,15 +40,4 @@ public class VideoService {
     public Video createVideoInVideoMiner(String id, Video data){
         return restTemplate.postForObject(videominerUri + "/videos/" + id, data, Video.class);
     }
-//DONE: PUT y DELETE
-    public void updateVideoInVideoMiner(String id, Video data) {
-        HttpEntity<Video> response = restTemplate.exchange(videominerUri + "/videos/" + id, HttpMethod.PUT, new HttpEntity<>(data), Video.class);
-        Video updatedVideo   = response.getBody();
-    }
-
-    public void deleteVideoInVideoMiner(String id) {
-        ResponseEntity<Void> response = restTemplate.exchange(videominerUri + "/videos/" + id, HttpMethod.DELETE, null, Void.class);
-    }
-
-    
 }

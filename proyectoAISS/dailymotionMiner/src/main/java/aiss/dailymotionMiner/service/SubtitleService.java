@@ -10,7 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.dailymotionMiner.model.peertubeModels.Subtitle; // esto es el caption
+import aiss.dailymotionMiner.model.peertubeModels.Subtitle; // esto es el CAPTION
 
 public class SubtitleService {
 
@@ -41,17 +41,5 @@ public class SubtitleService {
 //POST
     public Subtitle createSubtitleInVideoMiner(String id, Subtitle data){
         return restTemplate.postForObject(videominerUri + "/subtitles/" + id, data, Subtitle.class);
-    }
-//DONE: PUT y DELETE
-    public void updateSubtitleInVideoMiner(String id, Subtitle data) {
-        HttpEntity<Subtitle> response = restTemplate.exchange(videominerUri + "/subtitles/" + id, HttpMethod.PUT, new HttpEntity<>(data), Subtitle.class);
-        Subtitle updatedSubtitle = response.getBody();
-        //esto supongo q devolverá un 204 asi q no pongo el return
-    }
-
-    public void deleteSubtitleInVideoMiner(String id) {
-        ResponseEntity<Void> response = restTemplate.exchange(videominerUri + "/subtitles/" + id, HttpMethod.DELETE, null, Void.class);
-    }
-
-    
+    }  
 }

@@ -5,9 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeminer.model.peertubeModels.Caption.Caption;
@@ -42,16 +39,4 @@ public class CaptionService {
     public Caption createCaptionInVideoMiner(String id, Caption data){
         return restTemplate.postForObject(videominerUri + "/captions/" + id, data, Caption.class);
     }
-//DONE: PUT y DELETE
-    public void updateCaptionInVideoMiner(String id, Caption data) {
-        HttpEntity<Caption> response = restTemplate.exchange(videominerUri + "/captions/" + id, HttpMethod.PUT, new HttpEntity<>(data), Caption.class);
-        Caption updatedCaption = response.getBody();
-        //esto supongo q devolverá un 204 asi q no pongo el return
-    }
-
-    public void deleteCaptionInVideoMiner(String id) {
-        ResponseEntity<Void> response = restTemplate.exchange(videominerUri + "/captions/" + id, HttpMethod.DELETE, null, Void.class);
-    }
-
-    
 }

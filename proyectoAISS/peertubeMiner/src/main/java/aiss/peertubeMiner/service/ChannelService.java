@@ -36,7 +36,7 @@ public class ChannelService {
     }
 
 //POST
-    public Channel creatChannelInVideoMiner(String id,Channel data){
+    public Channel createChannelInVideoMiner(String id,Channel data){
         return restTemplate.postForObject(videominerUri + "/channels/" + id, data, Channel.class);
     }
 
