@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import aiss.dailymotionMiner.model.dailymotionModels.Channel;
+import aiss.dailymotionMiner.model.videominerModels.VMChannel;
 import aiss.dailymotionMiner.service.ChannelService;
 
 @RestController
@@ -26,8 +27,8 @@ public class ChannelController {
     }
 
     @PostMapping
-    public Channel sendChannel(Channel channel, String id){
-        return service.createChannelInVideoMiner(id, channel);
+    public VMChannel sendChannel(Channel channel, String id){
+        return service.createAcountInVideoMiner(id, channel);
     }
 
 }

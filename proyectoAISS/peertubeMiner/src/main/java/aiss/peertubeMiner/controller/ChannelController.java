@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import aiss.peertubeMiner.service.ChannelService;
 import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
+import aiss.peertubeMiner.model.videominerModels.VMChannel;
+import aiss.peertubeMiner.service.ChannelService;
 
 @RestController
 @RequestMapping("/")
@@ -26,7 +27,7 @@ public class ChannelController {
     }
 
     @PostMapping
-    public Channel sendChannel(Channel channel, String id){
+    public VMChannel sendChannel(Channel channel, String id){
         return service.createChannelInVideoMiner(id, channel);
     }
 
