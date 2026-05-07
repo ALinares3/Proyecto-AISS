@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.dailymotionMiner.model.dailymotionModels.Subtitle;
+import aiss.dailymotionMiner.model.videominerModels.VMCaption;
+import aiss.dailymotionMiner.transformer.Transformer;
 
 public class SubtitleService {
 
@@ -24,19 +26,16 @@ public class SubtitleService {
     @Value("${videominer.uri}")
     private String videominerUri;
 
+    private Transformer transformer;
+
 //GET all
     public List<Subtitle> findAllSubtitles() {
         Subtitle[] subtitles = restTemplate.getForObject(baseUri + "/subtitles", Subtitle[].class);
         return Arrays.asList(subtitles);
     }
-
-//GET by id
-    public Subtitle findSubtitleById(String id){
-        return restTemplate.getForObject(baseUri + "/subtitles/" + id, Subtitle.class);
-    }
-
 //POST
-    public Subtitle createSubtitleInVideoMiner(String id, Subtitle data){
-        return restTemplate.postForObject(videominerUri + "/subtitles/" + id, data, Subtitle.class);
-    }  
+    public VMCaption createAcountInVideoMiner(String id, Subtitle data){
+        VMCaption caption = transformer.transformaCaption(data);
+        return restTemplate.postForObject(videominerUri + "/acounts/" + id, caption, VMCaption.class);
+    } 
 }

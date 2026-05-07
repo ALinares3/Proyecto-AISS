@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.dailymotionMiner.model.dailymotionModels.Channel;
+import aiss.dailymotionMiner.model.videominerModels.VMChannel;
+import aiss.dailymotionMiner.transformer.Transformer;
 
 public class ChannelService {
 
@@ -24,19 +26,17 @@ public class ChannelService {
     @Value("${videominer.uri}")
     private String videominerUri;
 
+    private Transformer transformer;
+
 //GET all
     public List<Channel> findAllChannels() {
         Channel[] channels = restTemplate.getForObject(baseUri + "/channels", Channel[].class);
         return Arrays.asList(channels);
     }
-
-//GET by id
-    public Channel findChannelById(String id){
-        return restTemplate.getForObject(baseUri + "/channels/" + id, Channel.class);
-    }
-
 //POST
-    public Channel createChannelInVideoMiner(String id,Channel data){
-        return restTemplate.postForObject(videominerUri + "/channels/" + id, data, Channel.class);
+    public VMChannel createAcountInVideoMiner(String id, Channel data){
+        VMChannel channel = transformer.transformaChannel(data);
+        return restTemplate.postForObject(videominerUri + "/acounts/" + id, channel, VMChannel.class);
     }
+    
 }

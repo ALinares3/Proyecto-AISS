@@ -25,19 +25,16 @@ public class VideoService {
     @Value("${videominer.uri}")
     private String videominerUri;
 
+    private Transformer transformer;
+
 //GET all
     public List<Video> findAllVideos() {
         Video[] videos = restTemplate.getForObject(baseUri + "/videos", Video[].class);
         return Arrays.asList(videos);
     }
-
-//GET by id
-    public Video findVideoById(String id){
-        return restTemplate.getForObject(baseUri + "/videos/" + id, Video   .class);
-    }
-
 //POST
-    public Video createVideoInVideoMiner(String id, Video data){
-        return restTemplate.postForObject(videominerUri + "/videos/" + id, data, Video.class);
-    }
+    public VMVideo createAcountInVideoMiner(String id, Video data){
+            VMVideo video = transformer.transformaVideo(data);
+        return restTemplate.postForObject(videominerUri + "/acounts/" + id, video, VMVideo.class);
+        }
 }

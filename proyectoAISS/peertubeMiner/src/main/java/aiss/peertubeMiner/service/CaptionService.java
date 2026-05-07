@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeMiner.model.peertubeModels.Caption.Caption;
+import aiss.peertubeMiner.model.videominerModels.VMCaption;
+import aiss.peertubeMiner.transformer.Transformer;
 
 public class CaptionService {
 
@@ -24,19 +26,16 @@ public class CaptionService {
     @Value("${videominer.uri}")
     private String videominerUri;
 
+    private Transformer transformer;
+
 //GET all
     public List<Caption> findAllCaptions() {
         Caption[] captions = restTemplate.getForObject(baseUri + "/captions", Caption[].class);
         return Arrays.asList(captions);
     }
-
-//GET by id
-    public Caption findCaptionById(String id){
-        return restTemplate.getForObject(baseUri + "/captions/" + id, Caption.class);
-    }
-
 //POST
-    public Caption createCaptionInVideoMiner(String id, Caption data){
-        return restTemplate.postForObject(videominerUri + "/captions/" + id, data, Caption.class);
+    public VMCaption createAcountInVideoMiner(String id, Caption data){
+        VMCaption caption = transformer.transformaCaption(data);
+        return restTemplate.postForObject(videominerUri + "/acounts/" + id, caption, VMCaption.class);
     }
 }
