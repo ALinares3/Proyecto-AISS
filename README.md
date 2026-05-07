@@ -13,6 +13,9 @@ Apoyan a controller, solo deben tener GET y POST. También un service por objeto
 ### Transformador
 El transformador convierte los datos de las APIs a objetos de la BD de VideoMiner.
 Este va a ser gracioso de hacer, tendrá un montón de objetos en el constructor y un método void para cambiarlos, supongo.
+
+OJO: Hay que convertir el tipo de algunos atributos de Integer a String
+
 ### Application
 En el paquete principal existe esta clase que es la que se ejecuta.
 
