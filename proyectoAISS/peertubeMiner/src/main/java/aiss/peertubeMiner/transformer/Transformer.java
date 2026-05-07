@@ -11,10 +11,10 @@ import aiss.peertubeMiner.model.peertubeModels.Comment.Comment__1;
 import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
 import aiss.peertubeMiner.model.peertubeModels.Video.Video;
 
-public class Transformer { 
-    public VMCaption transformaCaption(Caption caption){
-        VMCaption vmcaption = new VMCaption();
+public class Transformer {
 
+    public VMCaption transformaCaption(Caption caption) {
+        VMCaption vmcaption = new VMCaption();
         vmcaption.setLink(caption.getCaptionPath());
         vmcaption.setLanguage(caption.getLanguage().toString()); // este está en la carpeta de Caption
 
@@ -24,16 +24,16 @@ public class Transformer {
     public VMUser transformaUser(User user) {
         VMUser vmuser = new VMUser();
 
-        vmuser.setId((long)user.getId());
         vmuser.setName(user.getName());
+        vmuser.setName(user.getName());
+        vmuser.setUser_link(user.getUrl());
+        vmuser.setPicture_link(user.getAvatars().stream().findFirst().orElse(null).toString());
 
         return vmuser;
     }
 
     public VMVideo transformaVideo(Video video) {
         VMVideo vmvideo = new VMVideo();
-
-        vmvideo.setId(video.getId().toString());
         vmvideo.setName(video.getName());
         vmvideo.setDescription(video.getDescription());
         vmvideo.setReleaseTime(video.getPublishedAt());
@@ -41,11 +41,10 @@ public class Transformer {
         return vmvideo;
     }
 
-    public VMComment transformaComment(Comment__1  comment) {
+    public VMComment transformaComment(Comment__1 comment) {
         VMComment vmcomment = new VMComment();
 
         vmcomment.setText(comment.getText());
-        vmcomment.setId(comment.getId().toString());
         vmcomment.setCreatedOn(comment.getCreatedAt());
 
         return vmcomment;
@@ -53,11 +52,10 @@ public class Transformer {
 
     public VMChannel transformaChannel(Channel channel) {
         VMChannel vmchannel = new VMChannel();
-
-        vmchannel.setId(channel.getId().toString());
         vmchannel.setName(channel.getName());
         vmchannel.setDescription(channel.getDescription());
         vmchannel.setCreatedTime(channel.getCreatedAt());
+        vmchannel.setVideos(null);
 
         return vmchannel;
     }
