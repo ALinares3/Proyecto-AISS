@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.peertubeminer.model.peertubeModels.Comment.Comment__1;
+import aiss.peertubeMiner.model.peertubeModels.Comment.Comment__1;
 
 
 public class commentThreadsService {

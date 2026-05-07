@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import aiss.dailymotionMiner.model.dailyMotionModels.Channel;
+import aiss.dailymotionMiner.model.dailymotionModels.Channel;
 import aiss.dailymotionMiner.service.ChannelService;
 
 @RestController

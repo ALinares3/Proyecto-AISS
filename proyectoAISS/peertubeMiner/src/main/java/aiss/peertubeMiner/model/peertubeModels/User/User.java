@@ -1,4 +1,3 @@
-
 package aiss.peertubeMiner.model.peertubeModels.User;
 
 import java.util.List;

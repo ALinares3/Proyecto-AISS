@@ -1,4 +1,4 @@
-package aiss.dailymotionMiner.model.dailyMotionModels;
+package aiss.dailymotionMiner.model.dailymotionModels;
 
 import javax.annotation.processing.Generated;
 

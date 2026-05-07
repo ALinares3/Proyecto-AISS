@@ -1,10 +1,10 @@
 package aiss.dailymotionMiner.transformer;
 
-import aiss.dailymotionMiner.model.dailyMotionModels.Channel;
+import aiss.dailymotionMiner.model.dailymotionModels.Channel;
 import aiss.dailymotionMiner.model.videominerModels.VMChannel;
 import aiss.dailymotionMiner.model.videominerModels.VMUser;
-import aiss.dailymotionMiner.model.dailyMotionModels.User;
-import aiss.dailymotionMiner.model.dailyMotionModels.Video;
+import aiss.dailymotionMiner.model.dailymotionModels.User;
+import aiss.dailymotionMiner.model.dailymotionModels.Video;
 import aiss.dailymotionMiner.model.videominerModels.VMVideo;
 
 public class Transformer {
@@ -15,7 +15,7 @@ public class Transformer {
         vmChannel.setId(channel.getId());
         vmChannel.setName(channel.getName());
         vmChannel.setDescription(channel.getDescription());
-        vmChannel.setCreatedTime(channel.getCreatedTime()); // tiene q ser String pero es un INTEGER
+        vmChannel.setCreatedTime(channel.getCreatedTime().toString()); // tiene q ser String pero es un INTEGER
         return vmChannel;
     }
     public VMUser transformaUser(User user) {
@@ -29,7 +29,7 @@ public class Transformer {
         vmvideo.setId(video.getId());
         vmvideo.setName(video.getTitle());
         vmvideo.setDescription(video.getDescription());
-        vmvideo.setReleaseTime(video.getCreatedTime());
+        vmvideo.setReleaseTime(video.getCreatedTime().toString());
         vmvideo.setAuthor(video.getOwner());
         vmvideo.setCaptions();
         vmvideo.setComments(video.getTags());

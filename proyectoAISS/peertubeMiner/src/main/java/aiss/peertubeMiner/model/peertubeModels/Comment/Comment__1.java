@@ -1,4 +1,4 @@
-package aiss.peertubeminer.model.peertubeModels.Comment;
+package aiss.peertubeMiner.model.peertubeModels.Comment;
 
 import javax.annotation.processing.Generated;
 

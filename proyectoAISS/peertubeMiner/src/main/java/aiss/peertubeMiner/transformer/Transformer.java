@@ -6,10 +6,10 @@ import aiss.peertubeMiner.model.videominerModels.VMChannel;
 import aiss.peertubeMiner.model.videominerModels.VMComment;
 import aiss.peertubeMiner.model.videominerModels.VMUser;
 import aiss.peertubeMiner.model.videominerModels.VMVideo;
-import aiss.peertubeminer.model.peertubeModels.Caption.Caption;
-import aiss.peertubeminer.model.peertubeModels.Comment.Comment__1;
-import aiss.peertubeminer.model.peertubeModels.Channel.Channel;
-import aiss.peertubeminer.model.peertubeModels.Video.Video;
+import aiss.peertubeMiner.model.peertubeModels.Caption.Caption;
+import aiss.peertubeMiner.model.peertubeModels.Comment.Comment__1;
+import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
+import aiss.peertubeMiner.model.peertubeModels.Video.Video;
 
 public class Transformer { 
     public VMCaption transformaCaption(Caption caption){

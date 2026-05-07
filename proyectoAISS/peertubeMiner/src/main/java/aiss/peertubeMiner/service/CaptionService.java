@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.peertubeminer.model.peertubeModels.Caption.Caption;
+import aiss.peertubeMiner.model.peertubeModels.Caption.Caption;
 
 public class CaptionService {
 

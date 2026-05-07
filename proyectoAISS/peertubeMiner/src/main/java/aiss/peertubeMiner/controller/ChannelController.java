@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import aiss.peertubeMiner.service.ChannelService;
-import aiss.peertubeminer.model.peertubeModels.Video.Channel;
+import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
 
 @RestController
 @RequestMapping("/")

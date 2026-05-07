@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-import aiss.dailymotionMiner.model.dailyMotionModels.User;
+import aiss.dailymotionMiner.model.dailymotionModels.User;
 
 public class OwnerService {
 
