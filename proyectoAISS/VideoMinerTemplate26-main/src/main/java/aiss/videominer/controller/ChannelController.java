@@ -31,7 +31,7 @@ public class ChannelController {
         this.channelRepository = channelRepository;
     }
 
-    //TODO: Get all y por id, post, put y delete
+
     @GetMapping
 	public List<Channel> findAll(){
 		return channelRepository.findAll();

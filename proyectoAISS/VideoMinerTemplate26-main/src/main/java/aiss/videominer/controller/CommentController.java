@@ -38,7 +38,6 @@ public class CommentController {
         this.commentRepository = commentRepository;
     }
 
-    //TODO:Get all y por id, post, put y delete
     @GetMapping("/comments")
     public List<Comment> findAll() {
         return commentRepository.findAll();

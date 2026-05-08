@@ -37,7 +37,7 @@ public class CaptionController {
         this.captionRepository = captionRepository;
     }
 
-    // TODO: Get all y por id, post, put y delete
+
     @GetMapping("/captions")
     public List<Caption> findAll() {
         return captionRepository.findAll();
