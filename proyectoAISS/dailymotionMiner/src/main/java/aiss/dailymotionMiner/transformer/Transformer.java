@@ -2,11 +2,11 @@ package aiss.dailymotionMiner.transformer;
 
 import aiss.dailymotionMiner.model.dailymotionModels.Channel;
 import aiss.dailymotionMiner.model.dailymotionModels.Subtitle;
-import aiss.dailymotionMiner.model.videominerModels.VMChannel;
-import aiss.dailymotionMiner.model.videominerModels.VMUser;
 import aiss.dailymotionMiner.model.dailymotionModels.User;
 import aiss.dailymotionMiner.model.dailymotionModels.Video;
 import aiss.dailymotionMiner.model.videominerModels.VMCaption;
+import aiss.dailymotionMiner.model.videominerModels.VMChannel;
+import aiss.dailymotionMiner.model.videominerModels.VMUser;
 import aiss.dailymotionMiner.model.videominerModels.VMVideo;
 
 public class Transformer {

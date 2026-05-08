@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeMiner.model.peertubeModels.Comment.Comment__1;
 import aiss.peertubeMiner.model.videominerModels.VMComment;
 import aiss.peertubeMiner.transformer.Transformer;
 
-
+@Service
 public class commentThreadsService {
     
     @Autowired
@@ -35,9 +36,9 @@ public class commentThreadsService {
         return Arrays.asList(comments);
     }
 //POST
-    public VMComment createAcountInVideoMiner(Comment__1 data){
+    public VMComment createCommentThreadInVideoMiner(Comment__1 data){
         VMComment comment = transformer.transformaComment(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + data.getId(), comment, VMComment.class);
+        return restTemplate.postForObject(videominerUri + "/comment-threads/" + data.getId(), comment, VMComment.class);
     }
 
 }

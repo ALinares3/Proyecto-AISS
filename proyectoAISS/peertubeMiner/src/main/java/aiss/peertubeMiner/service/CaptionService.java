@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeMiner.model.peertubeModels.Caption.Caption;
 import aiss.peertubeMiner.model.videominerModels.VMCaption;
 import aiss.peertubeMiner.transformer.Transformer;
 
+@Service
 public class CaptionService {
 
     @Autowired
@@ -20,7 +22,7 @@ public class CaptionService {
         this.restTemplate = restTemplate;
     }
 
-    @Value("${dailymotionMiner.baseuri}")
+    @Value("${peertubeMiner.baseuri}")
     private String baseUri;
 
     @Value("${videominer.uri}")
@@ -34,8 +36,8 @@ public class CaptionService {
         return Arrays.asList(captions);
     }
 //POST
-    public VMCaption createAcountInVideoMiner(Caption data){
+    public VMCaption createCaptionInVideoMiner(Caption data){
         VMCaption caption = transformer.transformaCaption(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + data.getId(), caption, VMCaption.class);
+        return restTemplate.postForObject(videominerUri + "/captions/" + data.getId(), caption, VMCaption.class);
     }
 }

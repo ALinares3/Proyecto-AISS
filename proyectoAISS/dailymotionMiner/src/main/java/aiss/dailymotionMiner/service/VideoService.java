@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.dailymotionMiner.model.dailymotionModels.Video;
 import aiss.dailymotionMiner.model.videominerModels.VMVideo;
 import aiss.dailymotionMiner.transformer.Transformer;
 
-
+@Service
 public class VideoService {
 
     @Autowired
@@ -35,8 +36,8 @@ public class VideoService {
         return Arrays.asList(videos);
     }
 //POST
-    public VMVideo createAcountInVideoMiner(Video data){
+    public VMVideo createVideoInVideoMiner(Video data){
         VMVideo video = transformer.transformaVideo(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + data.getId(), video, VMVideo.class);
+        return restTemplate.postForObject(videominerUri + "/videos/" + data.getId(), video, VMVideo.class);
     }
 }

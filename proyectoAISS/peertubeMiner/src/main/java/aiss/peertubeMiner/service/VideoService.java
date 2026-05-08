@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeMiner.model.peertubeModels.Video.Video;
+import aiss.peertubeMiner.model.videominerModels.VMVideo;
+import aiss.peertubeMiner.transformer.Transformer;
 
-
+@Service
 public class VideoService {
 
     @Autowired
@@ -33,8 +36,8 @@ public class VideoService {
         return Arrays.asList(videos);
     }
 //POST
-    public VMVideo createAcountInVideoMiner(String id, Video data){
+    public VMVideo createVideoInVideoMiner(String id, Video data){
             VMVideo video = transformer.transformaVideo(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + id, video, VMVideo.class);
+        return restTemplate.postForObject(videominerUri + "/videos/" + id, video, VMVideo.class);
         }
 }

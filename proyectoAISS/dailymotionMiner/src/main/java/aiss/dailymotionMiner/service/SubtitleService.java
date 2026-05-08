@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.dailymotionMiner.model.dailymotionModels.Subtitle;
 import aiss.dailymotionMiner.model.videominerModels.VMCaption;
 import aiss.dailymotionMiner.transformer.Transformer;
 
+@Service
 public class SubtitleService {
 
     @Autowired
@@ -34,8 +36,8 @@ public class SubtitleService {
         return Arrays.asList(subtitles);
     }
 //POST
-    public VMCaption createAcountInVideoMiner(Subtitle data){
+    public VMCaption createSubtitleInVideoMiner(Subtitle data){
         VMCaption caption = transformer.transformaCaption(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + data.getId(), caption, VMCaption.class);
+        return restTemplate.postForObject(videominerUri + "/subtitles/" + data.getId(), caption, VMCaption.class);
     } 
 }
