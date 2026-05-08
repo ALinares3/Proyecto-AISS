@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -17,8 +19,9 @@ import jakarta.persistence.Table;
 public class VMComment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
-    private String id;
+    private long id;
 
     @JsonProperty("text")
     @Column(columnDefinition="TEXT")
@@ -27,11 +30,11 @@ public class VMComment {
     @JsonProperty("createdOn")
     private String createdOn;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

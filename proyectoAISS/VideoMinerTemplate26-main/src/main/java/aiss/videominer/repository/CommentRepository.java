@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import aiss.videominer.model.Comment;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, String>{
+public interface CommentRepository extends JpaRepository<Comment, Long>{
     
 }

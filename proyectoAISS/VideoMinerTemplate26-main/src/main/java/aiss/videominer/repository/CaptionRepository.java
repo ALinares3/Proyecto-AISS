@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import aiss.videominer.model.Caption;
 
 @Repository
-public interface CaptionRepository extends JpaRepository<Caption, String>{
+public interface CaptionRepository extends JpaRepository<Caption, Long>{
 }

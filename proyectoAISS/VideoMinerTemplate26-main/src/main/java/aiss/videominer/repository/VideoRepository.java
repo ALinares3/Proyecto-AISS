@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import aiss.videominer.model.Video;
 
 @Repository
-public interface VideoRepository extends JpaRepository<Video, String>{
+public interface VideoRepository extends JpaRepository<Video, Long>{
     
 }

@@ -27,8 +27,8 @@ public class ChannelController {
     }
 
     @PostMapping
-    public VMChannel sendChannel(Channel channel, String id){
-        return service.createAcountInVideoMiner(id, channel);
+    public VMChannel sendChannel(Channel channel){
+        return service.createAcountInVideoMiner(channel);
     }
 
 }

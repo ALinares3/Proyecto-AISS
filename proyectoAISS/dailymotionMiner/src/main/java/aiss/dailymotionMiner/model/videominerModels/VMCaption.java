@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -16,8 +18,9 @@ import jakarta.persistence.Table;
 public class VMCaption {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
     @JsonProperty("name")
     private String name;
@@ -26,11 +29,11 @@ public class VMCaption {
     private String language;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

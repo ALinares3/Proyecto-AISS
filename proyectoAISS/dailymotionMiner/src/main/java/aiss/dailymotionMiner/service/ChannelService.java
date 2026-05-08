@@ -34,9 +34,9 @@ public class ChannelService {
         return Arrays.asList(channels);
     }
 //POST
-    public VMChannel createAcountInVideoMiner(String id, Channel data){
+    public VMChannel createAcountInVideoMiner(Channel data){
         VMChannel channel = transformer.transformaChannel(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + id, channel, VMChannel.class);
+        return restTemplate.postForObject(videominerUri + "/acounts/" + channel.getId(), channel, VMChannel.class);
     }
     
 }

@@ -34,8 +34,8 @@ public class OwnerService {
         return Arrays.asList(owners);
     }
 //POST
-    public VMUser createAcountInVideoMiner(String id, User data){
+    public VMUser createAcountInVideoMiner(User data){
         VMUser user = transformer.transformaUser(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + id, user, VMUser.class);
+        return restTemplate.postForObject(videominerUri + "/acounts/" + user.getId(), user, VMUser.class);
     }
 }

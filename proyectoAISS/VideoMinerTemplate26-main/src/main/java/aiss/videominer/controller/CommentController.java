@@ -1,5 +1,8 @@
 package aiss.videominer.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,17 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import aiss.videominer.repository.CommentRepository;
-import aiss.videominer.repository.VideoRepository;
-import jakarta.validation.Valid;
-
-import java.util.List;
-import java.util.Optional;
-
 import aiss.videominer.exception.CommentNotFoundException;
 import aiss.videominer.exception.VideoNotFoundException;
 import aiss.videominer.model.Comment;
 import aiss.videominer.model.Video;
+import aiss.videominer.repository.CommentRepository;
+import aiss.videominer.repository.VideoRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/videominer/v1")
@@ -46,7 +45,7 @@ public class CommentController {
     }
 
     @GetMapping("/comments/{id}")
-    public Comment findByOneId(@PathVariable String id) throws CommentNotFoundException {
+    public Comment findByOneId(@PathVariable Long id) throws CommentNotFoundException {
         Optional<Comment> comment = commentRepository.findById(id);
         if (!comment.isPresent()) {
             throw new CommentNotFoundException();
@@ -55,7 +54,7 @@ public class CommentController {
     }
 
     @GetMapping("/videos/{id}/comments")
-    public List<Comment> findCommentsOfVideo(@PathVariable String id) throws VideoNotFoundException {
+    public List<Comment> findCommentsOfVideo(@PathVariable Long id) throws VideoNotFoundException {
         Optional<Video> videoOptional = videoRepository.findById(id);
         if (!videoOptional.isPresent()) {
             throw new VideoNotFoundException();
@@ -73,7 +72,7 @@ public class CommentController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @PutMapping("/comments/{id}")
-    public void updateComment(@Valid @RequestBody Comment updateComment, @PathVariable String id) throws CommentNotFoundException {
+    public void updateComment(@Valid @RequestBody Comment updateComment, @PathVariable Long id) throws CommentNotFoundException {
         Optional<Comment> comment = commentRepository.findById(id);
         if (!comment.isPresent()) {
             throw new CommentNotFoundException();
@@ -86,7 +85,7 @@ public class CommentController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @DeleteMapping("/comments/{id}")
-    public void deleteComment(@PathVariable String id) {
+    public void deleteComment(@PathVariable Long id) {
         if (commentRepository.existsById(id)) {
             commentRepository.deleteById(id);
         }

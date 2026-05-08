@@ -36,7 +36,7 @@ public class VideoController {
     }
 
     @GetMapping("/videos/{id}")
-    public Video findById(@PathVariable String id) throws VideoNotFoundException{
+    public Video findById(@PathVariable Long id) throws VideoNotFoundException{
         Optional<Video> video = videoRepository.findById(id); 
         if(!video.isPresent()){
             throw new VideoNotFoundException();
@@ -52,7 +52,7 @@ public class VideoController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/videos/{id}")
-    public void updateVideo(@RequestBody Video updateVideo, @PathVariable String id) throws VideoNotFoundException{
+    public void updateVideo(@RequestBody Video updateVideo, @PathVariable Long id) throws VideoNotFoundException{
         Optional<Video> existing = videoRepository.findById(id);
         if (existing.isPresent()) { 
             throw new VideoNotFoundException();
@@ -69,7 +69,7 @@ public class VideoController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/videos/{id}")
-    public void deleteVideo(@PathVariable String id) {
+    public void deleteVideo(@PathVariable Long id) {
         if (videoRepository.existsById(id)) {
             videoRepository.deleteById(id);
         }

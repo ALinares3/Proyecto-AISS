@@ -34,8 +34,8 @@ public class CaptionService {
         return Arrays.asList(captions);
     }
 //POST
-    public VMCaption createAcountInVideoMiner(String id, Caption data){
+    public VMCaption createAcountInVideoMiner(Caption data){
         VMCaption caption = transformer.transformaCaption(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + id, caption, VMCaption.class);
+        return restTemplate.postForObject(videominerUri + "/acounts/" + data.getId(), caption, VMCaption.class);
     }
 }

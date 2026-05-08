@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import aiss.videominer.exception.ChannelNotFoundException;
 import aiss.videominer.model.Channel;
@@ -38,7 +38,7 @@ public class ChannelController {
 	}
 
 	@GetMapping("/{id}")
-	public Channel findByOneId(@PathVariable String id) throws ChannelNotFoundException{
+	public Channel findByOneId(@PathVariable Long id) throws ChannelNotFoundException{
 		Optional<Channel> channel = channelRepository.findById(id); 
         if(!channel.isPresent()){
             throw new ChannelNotFoundException();
@@ -55,7 +55,7 @@ public class ChannelController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @PutMapping("/{id}")
-    public void updateChannel(@Valid @RequestBody Channel updateChannel, @PathVariable String id) throws ChannelNotFoundException{
+    public void updateChannel(@Valid @RequestBody Channel updateChannel, @PathVariable Long id) throws ChannelNotFoundException{
         Optional<Channel> channel = channelRepository.findById(id);
         if(!channel.isPresent()){ 
             throw new ChannelNotFoundException();
@@ -67,7 +67,7 @@ public class ChannelController {
     }
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @DeleteMapping("/{id}")
-    public void deleteChannel(@PathVariable String id){
+    public void deleteChannel(@PathVariable Long id){
         if(channelRepository.existsById(id)) {
             channelRepository.deleteById(id);
         }

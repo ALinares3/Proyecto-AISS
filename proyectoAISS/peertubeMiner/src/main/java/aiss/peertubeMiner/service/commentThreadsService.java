@@ -35,9 +35,9 @@ public class commentThreadsService {
         return Arrays.asList(comments);
     }
 //POST
-    public VMComment createAcountInVideoMiner(String id, Comment__1 data){
+    public VMComment createAcountInVideoMiner(Comment__1 data){
         VMComment comment = transformer.transformaComment(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + id, comment, VMComment.class);
+        return restTemplate.postForObject(videominerUri + "/acounts/" + data.getId(), comment, VMComment.class);
     }
 
 }
