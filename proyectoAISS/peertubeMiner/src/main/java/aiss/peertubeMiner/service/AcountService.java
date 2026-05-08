@@ -39,6 +39,6 @@ public class AcountService {
 //POST
     public VMUser createAcountInVideoMiner(User data){
         VMUser user = transformer.transformaUser(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/" + data.getId(), user, VMUser.class);
+        return restTemplate.postForObject(videominerUri + "/acounts/", user, VMUser.class);
     }
 }

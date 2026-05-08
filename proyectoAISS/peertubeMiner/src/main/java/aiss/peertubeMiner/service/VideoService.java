@@ -38,6 +38,6 @@ public class VideoService {
 //POST
     public VMVideo createVideoInVideoMiner(String id, Video data){
             VMVideo video = transformer.transformaVideo(data);
-        return restTemplate.postForObject(videominerUri + "/videos/" + id, video, VMVideo.class);
+        return restTemplate.postForObject(videominerUri + "/videos/" ,video, VMVideo.class);
         }
 }

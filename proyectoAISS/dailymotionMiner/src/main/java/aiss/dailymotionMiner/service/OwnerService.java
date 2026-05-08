@@ -38,6 +38,6 @@ public class OwnerService {
 //POST
     public VMUser createOwnerInVideoMiner(User data){
         VMUser user = transformer.transformaUser(data);
-        return restTemplate.postForObject(videominerUri + "/owners/" + user.getId(), user, VMUser.class);
+        return restTemplate.postForObject(videominerUri + "/owners/", user, VMUser.class);
     }
 }

@@ -38,7 +38,7 @@ public class commentThreadsService {
 //POST
     public VMComment createCommentThreadInVideoMiner(Comment__1 data){
         VMComment comment = transformer.transformaComment(data);
-        return restTemplate.postForObject(videominerUri + "/comment-threads/" + data.getId(), comment, VMComment.class);
+        return restTemplate.postForObject(videominerUri + "/comment-threads/" , comment, VMComment.class);
     }
 
 }

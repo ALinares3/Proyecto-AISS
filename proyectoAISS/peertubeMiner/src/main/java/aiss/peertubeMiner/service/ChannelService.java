@@ -38,7 +38,7 @@ public class ChannelService {
 //POST
     public VMChannel createChannelInVideoMiner(Channel data){
         VMChannel channel = transformer.transformaChannel(data);
-        return restTemplate.postForObject(videominerUri + "/channels/" + data.getId(), channel, VMChannel.class);
+        return restTemplate.postForObject(videominerUri + "/channels/", channel, VMChannel.class);
     }
 
 }

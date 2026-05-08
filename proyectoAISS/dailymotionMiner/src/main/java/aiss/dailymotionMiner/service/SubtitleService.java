@@ -38,6 +38,6 @@ public class SubtitleService {
 //POST
     public VMCaption createSubtitleInVideoMiner(Subtitle data){
         VMCaption caption = transformer.transformaCaption(data);
-        return restTemplate.postForObject(videominerUri + "/subtitles/" + data.getId(), caption, VMCaption.class);
+        return restTemplate.postForObject(videominerUri + "/subtitles/", caption, VMCaption.class);
     } 
 }
