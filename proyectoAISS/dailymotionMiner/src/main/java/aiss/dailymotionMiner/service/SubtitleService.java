@@ -28,6 +28,7 @@ public class SubtitleService {
     @Value("${videominer.uri}")
     private String videominerUri;
 
+    @Autowired
     private Transformer transformer;
 
 //GET all
@@ -38,6 +39,6 @@ public class SubtitleService {
 //POST
     public VMCaption createSubtitleInVideoMiner(Subtitle data){
         VMCaption caption = transformer.transformaCaption(data);
-        return restTemplate.postForObject(videominerUri + "/subtitles/", caption, VMCaption.class);
+        return restTemplate.postForObject(videominerUri + "/captions", caption, VMCaption.class);
     } 
 }
