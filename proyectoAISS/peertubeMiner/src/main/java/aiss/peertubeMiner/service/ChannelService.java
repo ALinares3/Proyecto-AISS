@@ -2,6 +2,7 @@ package aiss.peertubeMiner.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
 import aiss.peertubeMiner.model.videominerModels.VMChannel;
 import aiss.peertubeMiner.model.videominerModels.VMVideo;
 import aiss.peertubeMiner.transformer.Transformer;
+import aiss.peertubeMiner.model.peertubeModels.Video.Video;
 
 @Service
 public class ChannelService {
@@ -40,9 +42,21 @@ public class ChannelService {
 //POST
     public VMChannel createChannelInVideoMiner(Channel data){
         VMChannel channel = transformer.transformaChannel(data);
-        for (int i = 0; i < channel.getVideos().size(); i++) {
-           restTemplate.postForObject(videominerUri + "/videos/" , channel.getVideos().get(i), VMVideo.class);
+        VideoService videoService = new VideoService(restTemplate);
+        List<Video> aux = videoService.findAllVideos();
+        List<Video> videos = new ArrayList<>();
+        for(Video v:aux) {
+            if(v.getChannel().equals(data)) {
+                videos.add(v);
+            }
         }
+        List<VMVideo> vmvideos = new ArrayList<>();
+        for(Video video:videos) {
+            VMVideo vmvideo = transformer.transformaVideo(video);
+            vmvideos.add(vmvideo);
+            restTemplate.postForObject(videominerUri + "/videos/" ,vmvideo, VMVideo.class);
+        }   
+        channel.setVideos(vmvideos);
         return restTemplate.postForObject(videominerUri + "/channels/", channel, VMChannel.class);
     }
 

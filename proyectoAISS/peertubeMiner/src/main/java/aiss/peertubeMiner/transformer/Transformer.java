@@ -57,7 +57,6 @@ public class Transformer {
         vmchannel.setName(channel.getName());
         vmchannel.setDescription(channel.getDescription());
         vmchannel.setCreatedTime(channel.getCreatedAt());
-        vmchannel.setVideos(null);
 
         return vmchannel;
     }
