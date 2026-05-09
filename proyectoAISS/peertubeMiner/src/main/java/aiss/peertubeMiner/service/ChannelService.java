@@ -2,7 +2,6 @@ package aiss.peertubeMiner.service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,10 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
+import aiss.peertubeMiner.model.peertubeModels.Video.Video;
+import aiss.peertubeMiner.model.peertubeModels.Video.videoResponse;
 import aiss.peertubeMiner.model.videominerModels.VMChannel;
 import aiss.peertubeMiner.model.videominerModels.VMVideo;
 import aiss.peertubeMiner.transformer.Transformer;
-import aiss.peertubeMiner.model.peertubeModels.Video.Video;
 
 @Service
 public class ChannelService {
@@ -42,22 +42,13 @@ public class ChannelService {
 //POST
     public VMChannel createChannelInVideoMiner(Channel data){
         VMChannel channel = transformer.transformaChannel(data);
-        VideoService videoService = new VideoService(restTemplate);
-        List<Video> aux = videoService.findAllVideos();
-        List<Video> videos = new ArrayList<>();
-        for(Video v:aux) {
-            if(v.getChannel().equals(data)) {
-                videos.add(v);
-            }
+        videoResponse videoResponse = restTemplate.getForObject(baseUri + "/video-channels/" + data.getId() + "/videos", videoResponse.class);
+        List<Video> videos = videoResponse.getData();
+        for(Video video:videos){
+            VMVideo vmVideo = transformer.transformaVideo(video);
+            restTemplate.postForObject(videominerUri + "/videos" ,vmVideo, VMVideo.class);
         }
-        List<VMVideo> vmvideos = new ArrayList<>();
-        for(Video video:videos) {
-            VMVideo vmvideo = transformer.transformaVideo(video);
-            vmvideos.add(vmvideo);
-            restTemplate.postForObject(videominerUri + "/videos/" ,vmvideo, VMVideo.class);
-        }   
-        channel.setVideos(vmvideos);
-        return restTemplate.postForObject(videominerUri + "/channels/", channel, VMChannel.class);
+        return restTemplate.postForObject(videominerUri + "/channels", channel, VMChannel.class);
     }
 
 }
