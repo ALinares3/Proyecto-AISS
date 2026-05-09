@@ -1,6 +1,5 @@
 package aiss.peertubeMiner.service;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeMiner.model.peertubeModels.Video.Video;
+import aiss.peertubeMiner.model.peertubeModels.Video.videoResponse;
 import aiss.peertubeMiner.model.videominerModels.VMVideo;
 import aiss.peertubeMiner.transformer.Transformer;
 
@@ -33,8 +33,12 @@ public class VideoService {
 
 //GET all
     public List<Video> findAllVideos() {
-        Video[] videos = restTemplate.getForObject(baseUri + "/videos", Video[].class);
-        return Arrays.asList(videos);
+         videoResponse response = restTemplate.getForObject(baseUri + "/videos", videoResponse.class);
+
+        if (response == null || response.getData() == null) {
+            return List.of();
+        }
+        return response.getData();
     }
 //POST
     public VMVideo createVideoInVideoMiner(Video data){
