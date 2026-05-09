@@ -37,8 +37,8 @@ public class VideoService {
         return Arrays.asList(videos);
     }
 //POST
-    public VMVideo createVideoInVideoMiner(String id, Video data){
-            VMVideo video = transformer.transformaVideo(data);
+    public VMVideo createVideoInVideoMiner(Video data){
+        VMVideo video = transformer.transformaVideo(data);
         return restTemplate.postForObject(videominerUri + "/videos/" ,video, VMVideo.class);
         }
 }

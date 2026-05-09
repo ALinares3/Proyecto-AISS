@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
 import aiss.peertubeMiner.model.videominerModels.VMChannel;
+import aiss.peertubeMiner.model.videominerModels.VMVideo;
 import aiss.peertubeMiner.transformer.Transformer;
 
 @Service
@@ -39,6 +40,9 @@ public class ChannelService {
 //POST
     public VMChannel createChannelInVideoMiner(Channel data){
         VMChannel channel = transformer.transformaChannel(data);
+        for (int i = 0; i < channel.getVideos().size(); i++) {
+           restTemplate.postForObject(videominerUri + "/videos/" , channel.getVideos().get(i), VMVideo.class);
+        }
         return restTemplate.postForObject(videominerUri + "/channels/", channel, VMChannel.class);
     }
 
