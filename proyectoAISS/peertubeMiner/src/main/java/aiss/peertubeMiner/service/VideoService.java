@@ -28,6 +28,7 @@ public class VideoService {
     @Value("${videominer.uri}")
     private String videominerUri;
 
+    @Autowired
     private Transformer transformer;
 
 //GET all

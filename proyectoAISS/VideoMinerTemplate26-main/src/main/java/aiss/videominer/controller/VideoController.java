@@ -20,7 +20,7 @@ import aiss.videominer.model.Video;
 import aiss.videominer.repository.VideoRepository;
 
 @RestController
-@RequestMapping("/videominer/v1")
+@RequestMapping("/videominer/v1/videos")
 public class VideoController {
 
     @Autowired
@@ -54,7 +54,7 @@ public class VideoController {
     @PutMapping("/videos/{id}")
     public void updateVideo(@RequestBody Video updateVideo, @PathVariable Long id) throws VideoNotFoundException{
         Optional<Video> existing = videoRepository.findById(id);
-        if (existing.isPresent()) { 
+        if (!existing.isPresent()) { 
             throw new VideoNotFoundException();
         }
         Video video = existing.get();

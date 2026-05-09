@@ -14,12 +14,12 @@ import aiss.peertubeMiner.model.videominerModels.VMUser;
 import aiss.peertubeMiner.transformer.Transformer;
 
 @Service
-public class AcountService {
+public class AccountService {
 
     @Autowired
     RestTemplate restTemplate;
 
-    public AcountService(RestTemplate restTemplate) {
+    public AccountService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
@@ -29,16 +29,17 @@ public class AcountService {
     @Value("${videominer.uri}")
     private String videominerUri;
 
+    @Autowired
     private Transformer transformer;
 
 //GET all
-    public List<Account> findAllAcounts() {
-        Account[] accounts = restTemplate.getForObject(baseUri + "/acounts", Account[].class);
+    public List<Account> findAllAccounts() {
+        Account[] accounts = restTemplate.getForObject(baseUri + "/accounts", Account[].class);
         return Arrays.asList(accounts);
     }
 //POST
-    public VMUser createAcountInVideoMiner(User data){
+    public VMUser createAccountInVideoMiner(User data){
         VMUser user = transformer.transformaUser(data);
-        return restTemplate.postForObject(videominerUri + "/acounts/", user, VMUser.class);
+        return restTemplate.postForObject(videominerUri + "/accounts", user, VMUser.class);
     }
 }

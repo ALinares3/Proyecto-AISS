@@ -28,6 +28,7 @@ public class OwnerService {
     @Value("${videominer.uri}")
     private String videominerUri;
 
+    @Autowired
     private Transformer transformer;
 
 //GET all
