@@ -30,12 +30,12 @@ public class VideoController {
         this.videoRepository = videoRepository;
     }
 
-    @GetMapping("/videos")
+    @GetMapping
     public List<Video> findAll() {
         return videoRepository.findAll();
     }
 
-    @GetMapping("/videos/{id}")
+    @GetMapping("/{id}")
     public Video findById(@PathVariable Long id) throws VideoNotFoundException{
         Optional<Video> video = videoRepository.findById(id); 
         if(!video.isPresent()){
@@ -45,13 +45,13 @@ public class VideoController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/videos")
+    @PostMapping
     public Video createVideo(@RequestBody Video video) {
         return videoRepository.save(video);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/videos/{id}")
+    @PutMapping("/{id}")
     public void updateVideo(@RequestBody Video updateVideo, @PathVariable Long id) throws VideoNotFoundException{
         Optional<Video> existing = videoRepository.findById(id);
         if (!existing.isPresent()) { 
@@ -68,7 +68,7 @@ public class VideoController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/videos/{id}")
+    @DeleteMapping("/{id}")
     public void deleteVideo(@PathVariable Long id) {
         if (videoRepository.existsById(id)) {
             videoRepository.deleteById(id);

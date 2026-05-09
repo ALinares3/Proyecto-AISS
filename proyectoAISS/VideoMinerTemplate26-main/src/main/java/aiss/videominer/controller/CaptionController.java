@@ -24,7 +24,7 @@ import aiss.videominer.repository.VideoRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/videominer/captions")
+@RequestMapping("/videominer")
 public class CaptionController {
 
     @Autowired
