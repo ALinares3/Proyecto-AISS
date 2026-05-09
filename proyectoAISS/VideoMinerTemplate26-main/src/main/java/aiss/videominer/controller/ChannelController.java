@@ -21,7 +21,7 @@ import aiss.videominer.repository.ChannelRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/videominer/v1/channels")
+@RequestMapping("/videominer/channels")
 public class ChannelController {
 
     @Autowired

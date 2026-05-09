@@ -1,16 +1,18 @@
 package aiss.peertubeMiner.transformer;
 
+import org.springframework.stereotype.Component;
+
+import aiss.peertubeMiner.model.peertubeModels.Caption.Caption;
+import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
+import aiss.peertubeMiner.model.peertubeModels.Comment.Comment__1;
 import aiss.peertubeMiner.model.peertubeModels.User.User;
+import aiss.peertubeMiner.model.peertubeModels.Video.Video;
 import aiss.peertubeMiner.model.videominerModels.VMCaption;
 import aiss.peertubeMiner.model.videominerModels.VMChannel;
 import aiss.peertubeMiner.model.videominerModels.VMComment;
 import aiss.peertubeMiner.model.videominerModels.VMUser;
 import aiss.peertubeMiner.model.videominerModels.VMVideo;
-import aiss.peertubeMiner.model.peertubeModels.Caption.Caption;
-import aiss.peertubeMiner.model.peertubeModels.Comment.Comment__1;
-import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
-import aiss.peertubeMiner.model.peertubeModels.Video.Video;
-
+@Component
 public class Transformer {
 
     public VMCaption transformaCaption(Caption caption) {

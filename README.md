@@ -37,3 +37,6 @@ Hecha.
 
 ### Anotaciones
 Aquí está más o menos las cosas que hay que ir haciendo, las dejo en el README que se vea claro, también hay cositas en los issues, se ven mejor si vais a projects. Creo que se puede subir el github en la entrega, aparte del zip, por lo que el README se puede hacer más bonito o lo que sea, pero no es importante.
+
+### Pruebas Postman
+Ahora mismo las pruebas de channel funcionan, se crea el canal con los datos(videos,captions,comments y user) pero los datos no se suben. Por ejemplo, el canal de prueba tiene 8 videos, pero al hacer la consulta de videos da 404. Hay que hacer que los datos se suban a la base de datos, creo que es con el POST de channel que tendría que llamar al de videos o algo por el estilo.

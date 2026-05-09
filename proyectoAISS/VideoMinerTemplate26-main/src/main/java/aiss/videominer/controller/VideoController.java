@@ -20,7 +20,7 @@ import aiss.videominer.model.Video;
 import aiss.videominer.repository.VideoRepository;
 
 @RestController
-@RequestMapping("/videominer/v1/videos")
+@RequestMapping("/videominer/videos")
 public class VideoController {
 
     @Autowired

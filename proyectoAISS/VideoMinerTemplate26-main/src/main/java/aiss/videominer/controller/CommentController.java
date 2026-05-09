@@ -24,7 +24,7 @@ import aiss.videominer.repository.VideoRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/videominer/v1/comments")
+@RequestMapping("/videominer/comments")
 public class CommentController {
 
     @Autowired
