@@ -2,6 +2,10 @@ package aiss.peertubeMiner.model.peertubeModels.Video;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class videoResponse {
 
     private List<Video> data;
