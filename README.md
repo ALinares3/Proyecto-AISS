@@ -1,80 +1,96 @@
 # **Proyecto AISS**
 
-El proyecto trata de un sistema de agregación de contenido multimedia desde múltiples plataformas de streaming
+Sistema de agregación de contenido multimedia desde Dailymotion y PeerTube. Las apps extraen videos, canales, comentarios y subtítulos, y los guardan en una base de datos centralizada.
 
-Este repositorio contiene tres aplicaciones Java Spring Boot:
+Tres aplicaciones que trabajan juntas:
+- **DailyMotionMiner** (puerto 8082): Extrae de Dailymotion
+- **PeertubeMiner** (puerto 8081): Extrae de PeerTube
+- **VideoMiner** (puerto 8083): API central con base de datos H2
 
------------------------------------------------------------------------------
-
-## Arquitectura General
-
-### 1. **DailyMotionMiner** & **PeertubeMiner**
-
-- dailymotionMiner
-    Extrae datos desde la API de Dailymotion.
-    Convierte los datos a los modelos de VideoMiner.
-    Envía los datos al servicio videominer.
-
-- peertubeMiner
-    Extrae datos desde la API de PeerTube.
-    Convierte los datos a los modelos de VideoMiner.
-    Envía los datos al servicio videominer.
-
-**Estructura:**
-#### Controller
-- **ChannelController**: Gestiona peticiones HTTP hacia las APIs externas (GET) y hacia VideoMiner (POST)
-- Integración bidireccional con servicios
-- ## Modelos
-- **Modelos de APIs**: POJOs que representan estructura nativa de Dailymotion/PeerTube
-- **Modelos de VideoMiner**: POJOs importados del sistema central para persistencia
-
-# Application
-- Punto de entrada de la aplicación Spring Boot
-- Configuración automática de dependencias
-
-### 2. **VideoMiner** (API Central)
-
-API centralizada que recibe y almacena datos de los miners en base de datos H2.
-
-#### Controller
-- **ChannelController**: `/videominer/channels` - CRUD completo de canales
-- **VideoController**: `/videominer/videos` - CRUD de videos
-- ## Excepciones
-- Exception Handler global configurado
-- Excepciones 404 personalizadas:
-  ## Modelos
-Entidades de la base de datos con relaciones JPA:
-- **Channel**: Contiene múltiples Videos (OneToMany)
-- ## Repositorios
-Interfaces que extienden `JpaRepository` para acceso a datos:
-- `ChannelRepository`
-- `VideoRepository`
-- `CommentRepository`
-- `CaptionRepository`
 ---
 
------------------------------------------------------------------------------
+## Requisitos
+
+- Java 21 (para dailymotionMiner y peertubeMiner)
+- Java 17 (para VideoMiner)
+
+---
 
 ## Cómo ejecutar
 
-    ### En Windows
-- dailymotionMiner:
-cd proyectoAISS\dailymotionMiner
-.\mvnw.cmd spring-boot:run
-- peertubeMiner:
-cd proyectoAISS\peertubeMiner
-.\mvnw.cmd spring-boot:run
-- VideoMinerTemplate26-main:
+**Las tres aplicaciones deben correr al mismo tiempo.** Abre 3 terminales:
+
+#### Windows
+```
+# Terminal 1 - VideoMiner (la central)
 cd proyectoAISS\VideoMinerTemplate26-main
 .\mvnw.cmd spring-boot:run
 
-    ### En Linux/macOs
-- dailymotionMiner:
-cd proyectoAISS/dailymotionMiner
-./mvnw spring-boot:run
-- peertubeMiner:
-cd proyectoAISS/peertubeMiner
-./mvnw spring-boot:run
-- VideoMinerTemplate26-main:
+# Terminal 2 - DailyMotionMiner
+cd proyectoAISS\dailymotionMiner
+.\mvnw.cmd spring-boot:run
+
+# Terminal 3 - PeertubeMiner
+cd proyectoAISS\peertubeMiner
+.\mvnw.cmd spring-boot:run
+```
+
+#### Linux / macOS
+```
+# Terminal 1 - VideoMiner
 cd proyectoAISS/VideoMinerTemplate26-main
 ./mvnw spring-boot:run
+
+# Terminal 2 - DailyMotionMiner
+cd proyectoAISS/dailymotionMiner
+./mvnw spring-boot:run
+
+# Terminal 3 - PeertubeMiner
+cd proyectoAISS/peertubeMiner
+./mvnw spring-boot:run
+```
+
+---
+
+## Guía de uso
+
+### Con Postman
+
+**Todas las pruebas se hacen en VideoMiner (`http://localhost:8083`)**
+
+Endpoints disponibles:
+- `GET /videominer/channels` - Ver todos los canales
+- `GET /videominer/channels/{id}` - Ver un canal específico
+- `POST /videominer/channels` - Crear canal
+- `GET /videominer/videos` - Ver todos los videos
+- `GET /videominer/videos/{id}` - Ver un video
+- `POST /videominer/videos` - Crear video
+- `GET /videominer/captions` - Ver subtítulos
+- `GET /videominer/comments` - Ver comentarios
+
+### Cómo funciona el flujo
+
+1. **VideoMiner** arranca primero y espera en `localhost:8083`
+2. **DailyMotionMiner** y **PeertubeMiner** arrancan después
+3. Haces una petición `POST /channels` en uno de los miners (ej: `http://localhost:8082/channels`) para extraer un canal
+4. El miner busca en su API externa, convierte los datos y los envía a VideoMiner
+5. VideoMiner guarda todo en la base de datos H2
+6. Ves los datos en VideoMiner con `GET /videominer/channels`
+
+### Base de datos H2
+
+Consola disponible en: `http://localhost:8083/h2-ui`
+
+---
+
+## Estructura del proyecto
+
+### DailyMotionMiner & PeertubeMiner
+- **Controller**: Maneja peticiones GET (buscar en APIs externas) y POST (enviar a VideoMiner)
+- **Service**: Lógica para extraer datos y transformarlos
+- **Transformer**: Convierte modelos nativos de cada API a modelos de VideoMiner
+
+### VideoMiner
+- **Controller**: CRUD de canales, videos, comentarios y subtítulos
+- **Repository**: Acceso a base de datos H2
+- **Model**: Entidades JPA con relaciones (Canal → Videos → Comentarios y Subtítulos)
