@@ -42,7 +42,7 @@ public class ChannelService {
     public VMChannel createChannelInVideoMiner(String id ,@RequestParam(defaultValue="maxVideos") Integer limitVideos,@RequestParam(defaultValue="2") Integer limitComments){
         Channel channel = restTemplate.getForObject(baseUri + "/channel/" + id, Channel.class);
         VMChannel VMchannel = transformer.transformaChannel(channel);
-        return restTemplate.postForObject(videominerUri + "/channels/", VMchannel, VMChannel.class);
+        return restTemplate.postForObject(videominerUri + "/channels/?maxVideos=" + limitVideos + "&maxComments=" + limitComments, VMchannel, VMChannel.class);
     }
 
 }
