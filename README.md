@@ -1,15 +1,92 @@
-# Proyecto-AISS
-## PeertubeMiner y DailyMotionMiner
-Son los proyectos que realizan consultas a las respectivas APIs y envían los resultados a VideoMiner. Cuentan con la siguiente estructura:
-### Controller
+# **Proyecto AISS**
+
+Este repositorio contiene tres aplicaciones Java Spring Boot:
+
+- dailymotionMiner
+    Extrae datos desde la API de Dailymotion.
+    Convierte los datos a los modelos de VideoMiner.
+    Envía los datos al servicio videominer.
+
+- peertubeMiner
+    Extrae datos desde la API de PeerTube.
+    Convierte los datos a los modelos de VideoMiner.
+    Envía los datos al servicio videominer.
+
+- VideoMinerTemplate26-main
+    API recibidora que persiste datos en una base de datos H2.
+    Contiene modelos, controladores, repositorios y manejo de excepciones.
+    También provee documentación OpenAPI/Swagger.
+
+-----------------------------------------------------------------------------
+
+## Estructura general
+
+- controller/
+    Controladores REST para exponer endpoints.
+
+- service/
+    Lógica de petición y conversión entre APIs.
+
+- model/
+    Modelos de datos de la API y modelos de VideoMiner.
+
+- transformer/
+    Convierte objetos de API a objetos del dominio VideoMiner.
+
+- resources/application.properties
+    Configuración de la aplicación.
+
+## Flujo de funcionamiento
+1. El usuario inicia dailymotionMiner o peertubeMiner.
+2. El controller local hace una llamada GET a la API externa.
+3. El service procesa la respuesta y la transforma usando Transformer.
+4. Se realiza un POST al endpoint de videominer.
+5. videominer guarda los datos en H2 y los expone mediante sus propios endpoints.
+
+-----------------------------------------------------------------------------
+
+## Cómo ejecutar
+
+    ### En Windows
+- dailymotionMiner:
+cd proyectoAISS\dailymotionMiner
+.\mvnw.cmd spring-boot:run
+- peertubeMiner:
+cd proyectoAISS\peertubeMiner
+.\mvnw.cmd spring-boot:run
+- VideoMinerTemplate26-main:
+cd proyectoAISS\VideoMinerTemplate26-main
+.\mvnw.cmd spring-boot:run
+
+    ### En Linux/macOs
+- dailymotionMiner:
+cd proyectoAISS/dailymotionMiner
+./mvnw spring-boot:run
+- peertubeMiner:
+cd proyectoAISS/peertubeMiner
+./mvnw spring-boot:run
+- VideoMinerTemplate26-main:
+cd proyectoAISS/VideoMinerTemplate26-main
+./mvnw spring-boot:run
+
+-----------------------------------------------------------------------------
+
+## Endpoints principales
+
+(de aqui a abajo falta por hacer)
+
+## Controller
 Existe un controlador para los canales (ChannelController), que se encarga de enviar las peticiones HTTP, un GET a las APIs y un POST a VideoMiner mediante los servicios existentes.
 Por ahora funcionan con las clases antiguas, hay que actualizarlos (y probablemente habrá que importar Transformer ya que los services funcionan con las clases de las APIs y el controller con los de VM).
+
 ### Modelos
 Los modelos se dividen en 2 tipos, los obtenidos por las APIs y los de VideoMiner, que serán importados por el resto de clases.
 Los de VM están hechos si no me he equivocado, los otros hay que hacer POJOs y por lo menos yo me están rayando obtenerlo bien.
+
 ### Servicios
 Los servicios se encargan de la "lógica" de las peticiones.
 Apoyan a controller, solo deben tener GET y POST. También un service por objeto de VM si hay.
+
 ### Transformador
 El transformador convierte los datos de las APIs a objetos de la BD de VideoMiner.
 Este va a ser gracioso de hacer, tendrá un montón de objetos en el constructor y un método void para cambiarlos, supongo.
@@ -25,12 +102,15 @@ Es una API que recibe datos de los otros proyectos y los envía a una base de da
 ### Controller
 Existen varios controladores con las consultas CRUD requeridas y con gestión de excepciones.
 Creo que solo quedan corregir detalles aquí.
+
 ### Excepciones
 Existe un gestor global de excepciones más una excepción 404 por objeto de la base de datos.
 Hecho
+
 ### Modelos
 Los modelos de la BD con sus relaciones entre ellos.
 En sí estan bien, lo que habría que hacer es guardar los IDs dados como otra variable y generar los IDs automáticamente como Longs.
+
 ### Repositorios
 La base de datos.
 Hecha.
