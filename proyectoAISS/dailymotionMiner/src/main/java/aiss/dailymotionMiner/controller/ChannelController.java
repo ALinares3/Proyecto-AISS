@@ -2,6 +2,7 @@ package aiss.dailymotionMiner.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,12 @@ public class ChannelController {
 
     private final ChannelService service;
 
+    @Value("${dailymotionMiner.maxVideos}")
+    private Integer maxVideos;
+
+    @Value("${dailymotionMiner.maxComments}")
+    private Integer maxComments;
+
     public ChannelController(ChannelService service) {
         this.service = service;
     }
@@ -29,7 +36,7 @@ public class ChannelController {
 
     @PostMapping
     public VMChannel sendChannel(@RequestBody Channel channel){
-        return service.createChannelInVideoMiner(channel);
+        return service.createChannelInVideoMiner(channel,maxVideos,maxComments);
     }
 
 }

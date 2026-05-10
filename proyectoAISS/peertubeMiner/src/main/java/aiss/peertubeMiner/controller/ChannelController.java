@@ -2,6 +2,7 @@ package aiss.peertubeMiner.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,12 @@ public class ChannelController {
         this.service = service;
     }
 
+    @Value("${dailymotionMiner.maxVideos}")
+    private Integer maxVideos;
+
+    @Value("${dailymotionMiner.maxComments}")
+    private Integer maxComments;
+
     @GetMapping
     public List<Channel> findAllChannels(){
         return service.findAllChannels();
@@ -29,7 +36,7 @@ public class ChannelController {
 
     @PostMapping
     public VMChannel sendChannel(@RequestBody Channel channel){
-        return service.createChannelInVideoMiner(channel);
+        return service.createChannelInVideoMiner(channel,maxVideos,maxComments);
     }
 
 }
