@@ -23,10 +23,10 @@ public class ChannelController {
         this.service = service;
     }
 
-    @Value("${dailymotionMiner.maxVideos}")
+    @Value("${peertubeMiner.maxVideos}")
     private Integer maxVideos;
 
-    @Value("${dailymotionMiner.maxComments}")
+    @Value("${peertubeMiner.maxComments}")
     private Integer maxComments;
 
     @GetMapping
