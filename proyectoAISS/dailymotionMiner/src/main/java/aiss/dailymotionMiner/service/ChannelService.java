@@ -38,9 +38,10 @@ public class ChannelService {
         return Arrays.asList(channels);
     }
 //POST
-    public VMChannel createChannelInVideoMiner(Channel data ,@RequestParam(defaultValue="maxVideos") Integer limitVideos,@RequestParam(defaultValue="2") Integer limitComments){
-        VMChannel channel = transformer.transformaChannel(data);
-        return restTemplate.postForObject(videominerUri + "/channels/?maxVideos=" + limitVideos + "&maxComments=" + limitComments, channel, VMChannel.class);
+    public VMChannel createChannelInVideoMiner(String id ,@RequestParam(defaultValue="maxVideos") Integer limitVideos,@RequestParam(defaultValue="2") Integer limitComments){
+        Channel channel = restTemplate.getForObject(baseUri + "/channel/" + id, Channel.class);
+        VMChannel VMchannel = transformer.transformaChannel(channel);
+        return restTemplate.postForObject(videominerUri + "/channels/", VMchannel, VMChannel.class);
     }
     
 }
