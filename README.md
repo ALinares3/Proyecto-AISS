@@ -1,6 +1,14 @@
 # **Proyecto AISS**
 
+El proyecto trata de un sistema de agregación de contenido multimedia desde múltiples plataformas de streaming
+
 Este repositorio contiene tres aplicaciones Java Spring Boot:
+
+-----------------------------------------------------------------------------
+
+## Arquitectura General
+
+### 1. **DailyMotionMiner** & **PeertubeMiner**
 
 - dailymotionMiner
     Extrae datos desde la API de Dailymotion.
@@ -12,36 +20,38 @@ Este repositorio contiene tres aplicaciones Java Spring Boot:
     Convierte los datos a los modelos de VideoMiner.
     Envía los datos al servicio videominer.
 
-- VideoMinerTemplate26-main
-    API recibidora que persiste datos en una base de datos H2.
-    Contiene modelos, controladores, repositorios y manejo de excepciones.
-    También provee documentación OpenAPI/Swagger.
+**Estructura:**
+#### Controller
+- **ChannelController**: Gestiona peticiones HTTP hacia las APIs externas (GET) y hacia VideoMiner (POST)
+- Integración bidireccional con servicios
+- ## Modelos
+- **Modelos de APIs**: POJOs que representan estructura nativa de Dailymotion/PeerTube
+- **Modelos de VideoMiner**: POJOs importados del sistema central para persistencia
 
------------------------------------------------------------------------------
+# Application
+- Punto de entrada de la aplicación Spring Boot
+- Configuración automática de dependencias
 
-## Estructura general
+### 2. **VideoMiner** (API Central)
 
-- controller/
-    Controladores REST para exponer endpoints.
+API centralizada que recibe y almacena datos de los miners en base de datos H2.
 
-- service/
-    Lógica de petición y conversión entre APIs.
-
-- model/
-    Modelos de datos de la API y modelos de VideoMiner.
-
-- transformer/
-    Convierte objetos de API a objetos del dominio VideoMiner.
-
-- resources/application.properties
-    Configuración de la aplicación.
-
-## Flujo de funcionamiento
-1. El usuario inicia dailymotionMiner o peertubeMiner.
-2. El controller local hace una llamada GET a la API externa.
-3. El service procesa la respuesta y la transforma usando Transformer.
-4. Se realiza un POST al endpoint de videominer.
-5. videominer guarda los datos en H2 y los expone mediante sus propios endpoints.
+#### Controller
+- **ChannelController**: `/videominer/channels` - CRUD completo de canales
+- **VideoController**: `/videominer/videos` - CRUD de videos
+- ## Excepciones
+- Exception Handler global configurado
+- Excepciones 404 personalizadas:
+  ## Modelos
+Entidades de la base de datos con relaciones JPA:
+- **Channel**: Contiene múltiples Videos (OneToMany)
+- ## Repositorios
+Interfaces que extienden `JpaRepository` para acceso a datos:
+- `ChannelRepository`
+- `VideoRepository`
+- `CommentRepository`
+- `CaptionRepository`
+---
 
 -----------------------------------------------------------------------------
 
