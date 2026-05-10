@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import aiss.peertubeMiner.model.peertubeModels.Channel.Channel;
-import aiss.peertubeMiner.model.peertubeModels.Video.Video;
-import aiss.peertubeMiner.model.peertubeModels.Video.videoResponse;
 import aiss.peertubeMiner.model.videominerModels.VMChannel;
-import aiss.peertubeMiner.model.videominerModels.VMVideo;
 import aiss.peertubeMiner.transformer.Transformer;
 
 @Service
@@ -42,12 +39,6 @@ public class ChannelService {
 //POST
     public VMChannel createChannelInVideoMiner(Channel data){
         VMChannel channel = transformer.transformaChannel(data);
-        videoResponse videoResponse = restTemplate.getForObject(baseUri + "/video-channels/" + data.getId() + "/videos", videoResponse.class);
-        List<Video> videos = videoResponse.getData();
-        for(Video video:videos){
-            VMVideo vmVideo = transformer.transformaVideo(video);
-            restTemplate.postForObject(videominerUri + "/videos" ,vmVideo, VMVideo.class);
-        }
         return restTemplate.postForObject(videominerUri + "/channels", channel, VMChannel.class);
     }
 
